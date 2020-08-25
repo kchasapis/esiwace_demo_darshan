@@ -1,0 +1,40 @@
+        IO Profiling Lab: Dir3 Exercise
+
+   What's in this example?
+   -----------------------
+ hostfile.txt      < A file containing a list of nodes for mpirun to use
+ output_slow       < dummy file to remove after testing
+ README            < This README file
+ mystery.sh        < The script that executes the ssf_exe binary with mpirun
+ mystery.c         < The source code for our example program being investigated
+ mystery_exe       < The executable program being investigated
+
+  Steps to complete this Exercise
+  -------------------------------
+
+1) First run the script "sequential.sh" This script will run the mpi 
+program named "sequential_exe"
+
+Run the script sequential.sh specifying the number of clients and 
+the number of ranks per client:
+
+sequential.sh -c <number client> -r <number rank per client>
+
+For example the following with run on 4 nodes, 2 ranks per node:
+./sequential.sh -c 4 -r 2
+
+2)  Use Darshan to analze performance
+
+What should you observe?
+
+-- Based on the bandwidth reported by the application and some parametric variations
+(increasing parallelism, changing I/O backend, increasing file size) are you able 
+to assess if the performance of the application are sastisfying or not?
+
+-- Using an analysis tool are you able to pintpoint potential sub-optimal code section
+
+-- Is the increasing in parallelism equivalent if ranks are within the same client
+node or distributed among several clients?
+
+-- Could you modify the code to decrease / increase the granularity of the random
+write pattern and observe the impact on performance?

@@ -1,0 +1,112 @@
+        IO Profiling Lab: Dir2 Exercise
+
+   What's in this example?
+   -----------------------
+ hostfile.txt           < A file containing a list of nodes for mpirun to use
+ output_slow            <
+ README                 < This README file
+ collective_opt.sh      < The script that executes the ssf.exe binary with mpirun
+ collective_opt.c       < The source code for our example program being investigated
+ collective_opt_exe     < The executable program being investigated
+
+  Steps to complete this Exercise
+  -------------------------------
+
+1) First run the script "collective_opt.sh" This script will run the mpi
+program named "collective_opt_exe"
+
+Run the script collective_opt.sh specifying the number of clients and
+the number of ranks per client:
+
+collective_opt.sh -c <number client> -r <number rank per client>
+
+For example the following with run on 4 nodes, 2 ranks per node:
+For practical reason the number of clients node is limited to 4
+./collective_opt.sh -c 4 -r 2
+
+2)  Use darshan to analyze the performance
+
+
+4) What do we expect ?
+
+This exercice is about collective operations in MPI-IO.
+The collectie_opt.c use an MPI_Info structure which is passed when the file is opened
+The structure specified if some optimization are requested. In the collective_opt we
+ask for 2 powerful optimization: Collective buffering and data sieving.
+
+Collective buffering try to minimize the effective number of I/O operation by allowing
+one or few I/O aggregator to gather in a buffer the data that the other ranks want to write.
+Once all messages have been received, the aggregator proceed to the write using an optimized
+algorithm.
+This can be seen as trading extra MPI messages against limited number of I/O operation.
+
+The Dio-pro statistics show that the optimize algorithm can be counter-productive and that this
+"optimizations" can be double-edges.
+
+
+Optimize version: Overall I/O Statistics:
+
+MPIIO ------------------------------------- limited number of calls to MPI-IO lib but due to the extra
+message between ranks the latency is increased and the overall bandwidth is much worse than what the
+file system delivered
+
+blocksize(s) read:   N/A
+blocksize(s) write:  [4]67108864
+
+I/O calls:     [4]MPI_File_write_all
+meta calls:    [4]MPI_File_open [4]MPI_File_close [4]MPI_File_set_view
+
+             size       # blocks       time        time (%)      min speed      avg speed      max speed     stdev speed
+        -------------  ----------  ------------  ------------  -------------  -------------  -------------  -------------
+read            0  B           0    0.000000 s    0.000000 %        0   B/s        0   B/s        0   B/s        0   B/s
+write  268.435456 MB           4    0.249710 s    0.001370 %  256.288 MiB/s  256.298 MiB/s  256.306 MiB/s        0   B/s
+meta                                0.731133 s    0.004012 %
+
+
+IME ------------------------------------- More call to IME lib., every call is high bandwidth
+
+blocksize(s) read:   N/A
+blocksize(s) write:  [16]16777216
+
+I/O calls:     [16]IME_PWRITE
+meta calls:
+
+             size       # blocks       time        time (%)      min speed      avg speed      max speed     stdev speed
+        -------------  ----------  ------------  ------------  -------------  -------------  -------------  -------------
+read            0  B           0    0.000000 s    0.000000 %        0   B/s        0   B/s        0   B/s        0   B/s
+write  268.435456 MB          16    0.042237 s    0.074837 %    1.371 GiB/s    1.480 GiB/s    3.036 GiB/s        0   B/s
+meta                                0.001291 s    0.002288 %
+
+
+Overall I/O Statistics:
+
+MPIIO ------------------------------------- Everything is simple, short call chain, thus speed of the IME native lib
+is correctly reflected at the MPI-IO level
+
+blocksize(s) read:   N/A
+blocksize(s) write:  [4]67108864
+
+I/O calls:     [4]MPI_File_write_all
+meta calls:    [4]MPI_File_open [4]MPI_File_close [4]MPI_File_set_view
+
+             size       # blocks       time        time (%)      min speed      avg speed      max speed     stdev speed
+        -------------  ----------  ------------  ------------  -------------  -------------  -------------  -------------
+read            0  B           0    0.000000 s    0.000000 %        0   B/s        0   B/s        0   B/s        0   B/s
+write  268.435456 MB           4    0.045058 s    0.000253 %    1.380 GiB/s    1.387 GiB/s    1.396 GiB/s        0   B/s
+meta                                0.769799 s    0.004322 %
+
+
+IME -------------------------------------
+
+blocksize(s) read:   N/A
+blocksize(s) write:  [4]67108864
+
+I/O calls:     [4]IME_PWRITE
+meta calls:
+
+             size       # blocks       time        time (%)      min speed      avg speed      max speed     stdev speed
+        -------------  ----------  ------------  ------------  -------------  -------------  -------------  -------------
+read            0  B           0    0.000000 s    0.000000 %        0   B/s        0   B/s        0   B/s        0   B/s
+write  268.435456 MB           4    0.045004 s    0.316406 %    1.381 GiB/s    1.389 GiB/s    1.398 GiB/s        0   B/s
+meta                                0.010236 s    0.071965 %
+

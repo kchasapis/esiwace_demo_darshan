@@ -1,0 +1,47 @@
+        IO Profiling Lab: Dir1 Exercise
+
+   What's in this example?
+   -----------------------
+ hostfile.txt      < A file containing a list of nodes for mpirun to use
+ README            < This README file
+ singleshared.sh   < The script that executes the ssf_exe binary with mpirun
+ ssf.c             < The source code for our example program being investigated
+ ssf_exe           < The executable program being investigated
+ fileperprocess.sh < The script that executes the fpp_exe binary with mpirun
+ fpp.c             < The source code for our example program being investigated
+ fpp_exe           < The executable program being investigated
+
+  Steps to complete this Exercise
+  -------------------------------
+
+1) First run the script "singleshared.sh" This script will generate and run the mpi 
+program named "ssf_exe"
+
+Run the script singleshared.sh specifying the number of clients and 
+the number of ranks per client:
+
+singleshared.sh -c <number client> -r <number rank per client>
+
+For example the following with run on 4 nodes, 2 ranks per node:
+./singleshared.sh -c 4 -r 2
+
+2) inspect the result using Darshan
+ . get name and location of the generate darshan logs with dig_darshanlog.sh
+ . generate the summary with  darshan-job-summary.pl <path>/file.darshan
+ . inspect the generated .pdf
+
+
+2) Same exercise with fileperprocess.sh
+
+What should you observe:
+
+-- Observe the performance gap between fileperprocess and singleshared file
+-- Play with the file size to be written. See the impact of overgrowing GPFS page pool
+-- Play with mpi over subscription: check the performance of creating more mpi rank
+than available core per socket (16 cores per sockets according to lstop)
+-- Play with mpi rank allocation, if you disable the MV2_CPU_BINDING_LEVEL policy
+you may observe even with a limited number of ranks several ranks mapped to the same
+core. You may be able to measure the performance impact
+-- Looking at Darshan (or the code source!) you will notice that
+the sharing pattern is coarse grain. Each rank write a large chunk in the shared
+file. Keep this is mind when studying Dir2.

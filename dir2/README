@@ -1,0 +1,47 @@
+        IO Profiling Lab: Dir3 Exercise
+
+   What's in this example?
+   -----------------------
+ hostfile.txt      < A file containing a list of nodes for mpirun to use
+ output_slow       < dummy file to remove after testing
+ README            < This README file
+ sequential.sh     < The script that executes the ssf_exe binary with mpirun
+ seuantial.c       < The source code for our example program being investigated
+ sequential_exe    < The executable program being investigated
+ random.sh         < The script that executes the fpp_exe binary with mpirun
+ random.c          < The source code for our example program being investigated
+ random_exe        < The executable program being investigated
+
+  Steps to complete this Exercise
+  -------------------------------
+
+1) First run the script "sequential.sh" This script will run the mpi 
+program named "sequential_exe"
+
+Run the script sequential.sh specifying the number of clients and 
+the number of ranks per client:
+
+sequential.sh -c <number client> -r <number rank per client>
+
+For example the following with run on 4 nodes, 2 ranks per node:
+./sequential.sh -c 4 -r 2
+
+2)  inspact the result using Darshan
+ . get name and location of the generate darshan logs with dig_darshanlog.sh
+ . generate the summary with  darshan-job-summary.pl <path>/file.darshan
+ . inspect the generated .pdf
+
+
+3) Same exercise with random.sh
+
+
+What should you observe:
+
+-- Sequential_exe share some performance characteristic with one of the code in dir2
+When the file size small are you able to decipher the characteristics of the code?
+Is a characterization tool such as darshan useful in such a case ?
+
+-- Play with the file size to be written. 
+
+Would you be able to derive from the random.c file a version which is not opening one file 
+per process but share the same file across all the processes ?
