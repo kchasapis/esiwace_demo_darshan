@@ -14,7 +14,7 @@ cd SUMMER_SCHOOL_2020
 tar -xzvf darshan-3.2.1.tar.gz
 cd darshan-3.2.1
 cd darshan-runtime/
-./configure CC=mpicc  --with-log-path-by-env=DARSHAN_LOGPATH --with-mem-align=128 --with-jobid-env=NONE
+./configure CC=mpicc --with-log-path-by-env=DARSHAN_LOGPATH --with-mem-align=128 --with-jobid-env=NONE
 sudo make -j install
 cd ..
 cd darshan-util/
@@ -32,4 +32,9 @@ export DARSHAN_LIB=/usr/local/lib/libdarshan.so
 # You might want to change the 4 by 2, based on the resources allocated to your VM
 darshan-parser *.darshan
 darshan-job-summary.pl *.darshan
+```
+
+### Dir2 (`SUMMER_SCHOOL_2020/dir2`)
+```bash
+cd ../dir2 # Assuming you were inside SUMMER_SCHOOL_2020/dir1 from the previous example
 ```
