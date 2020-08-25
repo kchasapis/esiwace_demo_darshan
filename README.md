@@ -37,16 +37,6 @@ for f in $(ls *.darshan) ; do
 done
 ```
 
-#### Bonus
-You can change the environment variable `LD_PRELOAD` to oversubscribe processors
-```bash
-sed -i s/mpirun/mpirun\ --oversubscribe/ <filename.sh> 
-```
-For example:
-```bash
-sed -i s/mpirun/mpirun\ --oversubscribe/ SUMMER_SCHOOL_2020/dir1/singleshared.sh
-```
-
 ### Example 2 (`SUMMER_SCHOOL_2020/dir2`)
 ```bash
 cd ../dir2 # Assuming you were inside SUMMER_SCHOOL_2020/dir1 from the previous example
