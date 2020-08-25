@@ -1,14 +1,6 @@
         DDN IO Profiling Lab
 
-  Prolog:
-  -----------
-
-  please open the file please_source_me_env.sh
-  and set the root directory of your IO lab installation.
-  then proceed to source please_source_me_env.sh
-  to get convenient scripts in your path
-
-  we assume the availability of a MPI (mpich) distribution on your system
+  We assume the availability of a MPI (mpich) distribution on your system
 
   What is it?
   -----------
