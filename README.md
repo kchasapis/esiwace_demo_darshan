@@ -1,4 +1,4 @@
-# esiwace_demo_darshan
+# ESiWACE Summer School 2020 - Darshan demo
 All the following steps assume you are running on the [ESiWACE Summer School VM](https://docs.google.com/document/d/1f9dDjTSnaCtGoJNQYa8eb3U6jCjQ_rjmVsDSo16cRzk)
 
 ## Installing dependencies
@@ -28,7 +28,8 @@ sudo make -j install
 cd ../../dir1 # Assuming you were inside SUMMER_SCHOOL_2020/darshan-3.2.1/darshan-util
 export DARSHAN_LOGPATH=./
 export DARSHAN_LIB=/usr/local/lib/libdarshan.so
-./singleshared.sh -c 1 -r 4
+./singleshared.sh -c 1 -r 4 
+# You might want to change the 4 by 2, based on the resources allocated to your VM
 darshan-parser *.darshan
 darshan-job-summary.pl *.darshan
 ```
