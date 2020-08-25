@@ -23,7 +23,7 @@ sudo make -j install
 ```
 
 ## Running the examples
-### Dir1 (`SUMMER_SCHOOL_2020/dir1`)
+### Example 1 (`SUMMER_SCHOOL_2020/dir1`)
 ```bash
 cd ../../dir1 # Assuming you were inside SUMMER_SCHOOL_2020/darshan-3.2.1/darshan-util
 export DARSHAN_LOGPATH=./
@@ -34,7 +34,20 @@ darshan-parser *.darshan
 darshan-job-summary.pl *.darshan
 ```
 
-### Dir2 (`SUMMER_SCHOOL_2020/dir2`)
+### Example 2 (`SUMMER_SCHOOL_2020/dir2`)
 ```bash
 cd ../dir2 # Assuming you were inside SUMMER_SCHOOL_2020/dir1 from the previous example
+export DXT_ENABLE_IO_TRACE=1
+```
+
+### Example 3 (`SUMMER_SCHOOL_2020/dir3`)
+```bash
+cd ../dir3 # Assuming you were inside SUMMER_SCHOOL_2020/dir2 from the previous example
+# TODO
+```
+
+### Example 4 (`SUMMER_SCHOOL_2020/dir4`)
+```bash
+cd ../dir4 # Assuming you were inside SUMMER_SCHOOL_2020/dir3 from the previous example
+# TODO
 ```
