@@ -31,7 +31,7 @@ export DARSHAN_LIB=/usr/local/lib/libdarshan.so
 ./singleshared.sh -c 1 -r 4 
 # You might want to change the 4 by 2, based on the resources allocated to your VM
 darshan-parser *.darshan
-for f in $(ls *.darshan); do
+for f in $(ls *.darshan) ; do
   echo "Processing -> $f"
   darshan-job-summary.pl $f
 done
