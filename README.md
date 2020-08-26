@@ -76,7 +76,7 @@ cd darshan-$version/darshan-util/
 
 ./prepare
 
-./configure ./configure CC=mpicc --prefix=$installation-dir
+./configure CC=mpicc --prefix=$installation-dir
 
 make -j 32 && make install
 

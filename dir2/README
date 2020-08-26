@@ -26,7 +26,7 @@ sequential.sh -c <number client> -r <number rank per client>
 For example the following with run on 4 nodes, 2 ranks per node:
 ./sequential.sh -c 4 -r 2
 
-2)  inspact the result using Darshan
+2)  inspect the result using Darshan
  . get name and location of the generate darshan logs with dig_darshanlog.sh
  . generate the summary with  darshan-job-summary.pl <path>/file.darshan
  . inspect the generated .pdf

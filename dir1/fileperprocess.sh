@@ -38,6 +38,6 @@ OUTPUT="/tmp/local_output"
 
 set -x
 # hostfile to be used for multi-node execution
-LD_PRELOAD=$DARSHAN_LIB mpirun --oversubscribed -np $TOTAL_RANK $BIN -k 65536 -v -p $OUTPUT
+LD_PRELOAD=$DARSHAN_LIB mpirun --oversubscribe -np $TOTAL_RANK $BIN -k 65536 -v -p $OUTPUT
 echo removing output files
 rm -f $OUTPUT/local_output_*
